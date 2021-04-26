@@ -19,6 +19,10 @@ namespace ValenceClientSide
     class Program
     {
         private static ID2LUserContext  InterceptUserTokens( HostSpec host, ID2LAppContext appContext ) {
+            
+            // TLS 1.1 and below has been deprecated. This ensures we use TLS 1.2
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            
             // Start HTTP server and listen for the redirect after a successful auth
             var httpListener = new HttpListener();
             httpListener.Prefixes.Add("http://localhost:31337/result/");
